@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Task Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>Smart Task Analyzer</h1>
+      <p>Paste your tasks and let the app tell you what to work on first.</p>
+    </header>
+
+    <main class="app-main">
+      <section class="input-panel">
+        <h2>Task Input</h2>
+        <label for="strategy">Sorting strategy</label>
+        <select id="strategy">
+          <option value="default">Default (Smart score)</option>
+          <option value="fastest">Fastest wins</option>
+          <option value="deadline">Deadline driven</option>
+        </select>
+
+        <label for="task-json">Tasks JSON</label>
+        <textarea id="task-json" rows="18" spellcheck="false"></textarea>
+
+        <div class="controls">
+          <button id="btn-fill-example">Fill Example</button>
+          <button id="btn-analyze">Analyze</button>
+          <button id="btn-suggest">Suggest Top 3</button>
+        </div>
+
+        <div id="error" class="error"></div>
+      </section>
+
+      <section class="results-panel">
+        <h2>Results</h2>
+        <div id="results" class="results-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
