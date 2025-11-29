@@ -49,7 +49,20 @@ def frontend_script(request):
     return FileResponse(open(js_path, "rb"))
 
 
+def health_check(request):
+    """Health check endpoint for deployment platforms."""
+    from django.http import JsonResponse
+    from datetime import date
+    return JsonResponse({
+        "status": "healthy",
+        "message": "Smart Task Analyzer is running",
+        "timestamp": str(date.today()),
+    })
+
+
 urlpatterns = [
+    # Health check endpoint (for deployment platforms)
+    path("health/", health_check, name="health"),
     # Frontend UI at root (no CORS issues – same origin as the API)
     path("", frontend_index, name="home"),
     path("styles.css", frontend_styles, name="frontend-styles"),
