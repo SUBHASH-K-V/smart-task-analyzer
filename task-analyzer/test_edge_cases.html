@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge Case Test Data - Smart Task Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .test-case {
+            background: #2a2a2a;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        .test-case h3 {
+            color: #FFC107;
+            margin-top: 0;
+        }
+        .json-box {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            border: 1px solid #444;
+            margin: 10px 0;
+        }
+        .copy-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        .description {
+            color: #bbb;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Edge Case Test Data for Screen Recording</h1>
+    <p>Copy these JSON snippets to test all edge cases in your Smart Task Analyzer.</p>
+
+    <div class="test-case">
+        <h3>1. Overdue Tasks</h3>
+        <div class="description">Tests how the app handles tasks with past due dates (should get high priority)</div>
+        <div class="json-box" id="json1">
+[
+  {
+    "title": "Overdue urgent task",
+    "due_date": "2020-01-01",
+    "importance": 9,
+    "estimated_hours": 2,
+    "dependencies": []
+  },
+  {
+    "title": "Future task",
+    "due_date": "2026-12-31",
+    "importance": 8,
+    "estimated_hours": 1,
+    "dependencies": []
+  }
+]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json1')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>2. Missing Fields</h3>
+        <div class="description">Tests graceful handling of missing importance, hours, or due_date</div>
+        <div class="json-box" id="json2">
+[
+  {
+    "title": "Task with missing importance",
+    "due_date": "2025-12-01",
+    "estimated_hours": 3
+  },
+  {
+    "title": "Task with missing hours",
+    "due_date": "2025-12-01",
+    "importance": 7
+  },
+  {
+    "title": "Task with no due date",
+    "importance": 8,
+    "estimated_hours": 2
+  }
+]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json2')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>3. Invalid JSON</h3>
+        <div class="description">Tests error handling for malformed JSON</div>
+        <div class="json-box" id="json3">
+{ "title": "broken"
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json3')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>4. Empty Array</h3>
+        <div class="description">Tests handling of empty input</div>
+        <div class="json-box" id="json4">
+[]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json4')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>5. Tasks with Dependencies</h3>
+        <div class="description">Tests how dependencies affect scoring</div>
+        <div class="json-box" id="json5">
+[
+  {
+    "title": "Task with dependencies",
+    "due_date": "2025-12-01",
+    "importance": 9,
+    "estimated_hours": 2,
+    "dependencies": [1, 2]
+  },
+  {
+    "title": "Independent task",
+    "due_date": "2025-12-01",
+    "importance": 7,
+    "estimated_hours": 1,
+    "dependencies": []
+  }
+]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json5')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>6. Extreme Values</h3>
+        <div class="description">Tests very high/low importance and hours</div>
+        <div class="json-box" id="json6">
+[
+  {
+    "title": "Extremely important task",
+    "due_date": "2025-12-01",
+    "importance": 10,
+    "estimated_hours": 20,
+    "dependencies": []
+  },
+  {
+    "title": "Quick task",
+    "due_date": "2025-12-01",
+    "importance": 1,
+    "estimated_hours": 0.5,
+    "dependencies": []
+  }
+]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json6')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>7. Due Today/Tomorrow</h3>
+        <div class="description">Tests urgency bonuses for tasks due soon</div>
+        <div class="json-box" id="json7">
+[
+  {
+    "title": "Due today",
+    "due_date": "2025-11-29",
+    "importance": 5,
+    "estimated_hours": 2,
+    "dependencies": []
+  },
+  {
+    "title": "Due tomorrow",
+    "due_date": "2025-11-30",
+    "importance": 5,
+    "estimated_hours": 2,
+    "dependencies": []
+  }
+]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json7')">Copy JSON</button>
+    </div>
+
+    <div class="test-case">
+        <h3>8. Complete Example (All Features)</h3>
+        <div class="description">Full example with various scenarios for final demo</div>
+        <div class="json-box" id="json8">
+[
+  {
+    "title": "Finish assignment report",
+    "due_date": "2025-11-30",
+    "importance": 9,
+    "estimated_hours": 3,
+    "dependencies": []
+  },
+  {
+    "title": "Pay electricity bill",
+    "due_date": "2025-11-22",
+    "importance": 8,
+    "estimated_hours": 0.5,
+    "dependencies": []
+  },
+  {
+    "title": "Refactor old codebase",
+    "due_date": "2025-12-05",
+    "importance": 6,
+    "estimated_hours": 10,
+    "dependencies": []
+  },
+  {
+    "title": "Plan weekend trip",
+    "due_date": "2025-12-10",
+    "importance": 4,
+    "estimated_hours": 2,
+    "dependencies": []
+  }
+]
+        </div>
+        <button class="copy-btn" onclick="copyToClipboard('json8')">Copy JSON</button>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent.trim();
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = "✓ Copied!";
+                btn.style.background = "#4CAF50";
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = "#4CAF50";
+                }, 2000);
+            }).catch(err => {
+                alert("Failed to copy. Please select and copy manually.");
+            });
+        }
+    </script>
+</body>
+</html>
+
