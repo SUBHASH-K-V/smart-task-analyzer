@@ -4,8 +4,19 @@ from typing import Any, Dict, List
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 from .scoring import sort_tasks_with_scores
+
+
+@require_http_methods(["GET"])
+def health_check(request):
+    """Health check endpoint for deployment platforms."""
+    return JsonResponse({
+        "status": "healthy",
+        "message": "Smart Task Analyzer API is running",
+        "timestamp": str(date.today()),
+    })
 
 
 def _parse_request_body(body: bytes) -> Dict[str, Any]:
